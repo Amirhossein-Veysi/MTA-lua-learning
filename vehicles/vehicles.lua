@@ -4,7 +4,7 @@ function createVehicleForPlayer(player, command, model)
     local rx, ry, rz = getElementRotation(player)
     y = y + 5
 
-    dbExec(db, 'INSERT INTO vehicles (model, x, y, z, rx, ry, rz) VALUES (?, ?, ?, ?, ?, ?, ?)', model, x, y, z, rx, ry, rz);
+    dbExec(db, 'INSERT INTO vehicles (model, x, y, z, rx, ry, rz, health) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', model, x, y, z, rx, ry, rz, 1000);
     local vehicleObject = createVehicle(model, x, y, z, xr, yr, zr)
 
     dbQuery(function(queryHandle)
@@ -23,6 +23,7 @@ function loadAllVehicles(queryHandle)
     for index, vehicle in pairs(results) do
         local vehicleObject = createVehicle(vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz)
 
+        setElementHealth(vehicleObject, vehicle.health)
         setElementData(vehicleObject, "id", vehicle.id)
     end
 end
@@ -40,7 +41,8 @@ addEventHandler("onResourceStop", resourceRoot, function()
         local id = getElementData(vehicle, 'id')
         local x, y, z = getElementPosition(vehicle)
         local rx, ry, rz = getElementRotation(vehicle)
+        local health = getElementHealth(vehicle)
 
-        dbExec(db, 'UPDATE vehicles SET x = ?, y = ?, z = ?, rx = ?, ry = ?, rz = ? WHERE id = ?', x, y, z, rx, ry, rz, id)
+        dbExec(db, 'UPDATE vehicles SET x = ?, y = ?, z = ?, rx = ?, ry = ?, rz = ?, health = ? WHERE id = ?', x, y, z, rx, ry, rz, health, id)
     end
 end)

@@ -24,6 +24,7 @@ function loadAllVehicles(queryHandle)
         local vehicleObject = createVehicle(vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz)
 
         setElementHealth(vehicleObject, vehicle.health)
+        setVehicleColor(vehicleObject, vehicle.c1, vehicle.c2, vehicle.c3, vehicle.c4)
         setElementData(vehicleObject, "id", vehicle.id)
     end
 end
@@ -42,7 +43,8 @@ addEventHandler("onResourceStop", resourceRoot, function()
         local x, y, z = getElementPosition(vehicle)
         local rx, ry, rz = getElementRotation(vehicle)
         local health = getElementHealth(vehicle)
+        local c1, c2, c3, c4 = getVehicleColor(vehicle, false)
 
-        dbExec(db, 'UPDATE vehicles SET x = ?, y = ?, z = ?, rx = ?, ry = ?, rz = ?, health = ? WHERE id = ?', x, y, z, rx, ry, rz, health, id)
+        dbExec(db, 'UPDATE vehicles SET x = ?, y = ?, z = ?, rx = ?, ry = ?, rz = ?, health = ?, c1 = ?, c2 = ?, c3 = ?, c4 =? WHERE id = ?', x, y, z, rx, ry, rz, health, c1, c2, c3, c4, id)
     end
 end)

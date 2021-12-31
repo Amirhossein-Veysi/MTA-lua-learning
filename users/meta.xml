@@ -1,0 +1,21 @@
+<!-- This resource need to add in ACL.xml to group Admin. -->
+<meta>
+    <info author="draobrehtom + NexT" description="HTML login panel by draobrehtom + NexT" version="3.2" type="script"></info>
+    <script src="client.lua" type="client" cache="false" />
+	<script src="server.lua" type="server" cache="false" />
+	
+	<!-- HTML -->
+	<file src="index.html" />
+	<!-- FILES -->	
+	<file src="js/java.js" />
+	<file src="css/style.css" />
+	<file src="2.jpg" />
+	<file src="shap.png" />
+	<file src="intro.mp3" />
+	<script src="notification_c.lua" type="client"/>
+	<file src="FontAwesome.otf"/>
+	<file src="RobotoB.ttf"/>
+
+	<!-- Exports -->
+	<export function="cmsg" http="true" />
+</meta>

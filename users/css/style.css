@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0 auto;
+  color: #fff;
+  font-size: 20px;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  height: 100vh;
+  background-image: linear-gradient(to left, #7500ff 30%, #1c1cff);
+}
+
+.d-none {
+	display: none !important;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 650px;
+  padding: 25px;
+  border-radius: 10px;
+  background: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: #fff;
+  box-shadow: 0 0 7px #333;
+}
+
+.form .form-group {
+  width: 90%;
+}
+
+.form input {
+  width: 100%;
+  height: 40px;
+  border-radius: 7px;
+  background: #f1f1f1;
+  outline: 0;
+  border: 0;
+  padding: 15px;
+  cursor: alias;
+}
+
+.mt-4 {
+  margin-top: 15px;
+}
+
+.form button {
+	width: 50%;
+	height: 45px;
+	border-radius: 4px;
+	background: #8c00ff;
+	border: 0;
+	outline: 0;
+	color: #fff;
+	margin-top: 20px;
+	font-size: 18px;
+}
+
+.shapes {
+	position: fixed;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+
+.shapes .big {
+	width: 30%;
+	height: 40%;
+	border-radius: 10% 34% 60% 5%;
+	background: #5353ff;
+	margin-left: 10%;
+	margin-top: 15%;
+	animation: rotating 20s linear infinite;
+}
+
+.shapes .small {
+	position: absolute;
+	right: 20%;
+	top: 20%;
+	padding: 100px;
+	width: 20%;
+	height: 20%;
+	animation: rotating 3s linear infinite;
+}
+
+.shapes .small .circle {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: #ad64ff;
+}
+
+@keyframes rotating {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+#show-login, #show-signup {
+	background: none;
+	outline: 0;
+	border: 0;
+	color: #b575ff;
+}

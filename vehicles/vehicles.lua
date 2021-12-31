@@ -48,3 +48,21 @@ addEventHandler("onResourceStop", resourceRoot, function()
         dbExec(db, 'UPDATE vehicles SET x = ?, y = ?, z = ?, rx = ?, ry = ?, rz = ?, health = ?, c1 = ?, c2 = ?, c3 = ?, c4 =? WHERE id = ?', x, y, z, rx, ry, rz, health, c1, c2, c3, c4, id)
     end
 end)
+
+function lockcar ( thePlayer )
+    playervehicle = getPlayerOccupiedVehicle ( thePlayer )
+    if ( playervehicle ) then
+        if isVehicleLocked ( playervehicle ) then
+            setVehicleLocked ( playervehicle, false )
+            outputChatBox("vehicle isn't locked", thePlayer, 100, 100, 255)
+        else
+            setVehicleLocked ( playervehicle, true )
+            outputChatBox("vehicle is locked", thePlayer, 100, 100, 255)
+        end
+    end
+end
+
+function bindLockOnSpawn ( theSpawnpoint )
+    bindKey ( source, "l", "down", lockcar )
+end
+addEventHandler ( "onPlayerSpawn", root, bindLockOnSpawn ) 

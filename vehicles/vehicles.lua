@@ -49,20 +49,42 @@ addEventHandler("onResourceStop", resourceRoot, function()
     end
 end)
 
-function lockcar ( thePlayer )
-    playervehicle = getPlayerOccupiedVehicle ( thePlayer )
-    if ( playervehicle ) then
-        if isVehicleLocked ( playervehicle ) then
-            setVehicleLocked ( playervehicle, false )
-            outputChatBox("vehicle isn't locked", thePlayer, 100, 100, 255)
+function lockcar (player)
+    local vehicle = getPedOccupiedVehicle(player)
+    if vehicle then
+        if isVehicleLocked ( vehicle ) then
+            setVehicleLocked ( vehicle, false )
+            outputChatBox("vehicle isn't locked", player, 100, 100, 255)
         else
-            setVehicleLocked ( playervehicle, true )
-            outputChatBox("vehicle is locked", thePlayer, 100, 100, 255)
+            setVehicleLocked ( vehicle, true )
+            outputChatBox("vehicle is locked", player, 100, 100, 255)
+        end
+    end
+end
+
+function changeEngine(player)
+    local vehicle = getPedOccupiedVehicle(player)
+    if vehicle then
+        if getVehicleEngineState(vehicle) then
+            setVehicleEngineState(vehicle, false)
+        else
+            setVehicleLocked ( vehicle, true)
         end
     end
 end
 
 function bindLockOnSpawn ( theSpawnpoint )
-    bindKey ( source, "l", "down", lockcar )
+    bindKey ( source, "l", "down", lockcar)
+    bindKey(source, "o", "down", changeEngine)
 end
 addEventHandler ( "onPlayerSpawn", root, bindLockOnSpawn ) 
+
+function turnEngineOff ( theVehicle, leftSeat, jackerPlayer )
+    -- if it's the driver who got out, and he was not jacked,
+    if leftSeat == 0 and not jackerPlayer then
+        -- turn off the engine
+        setVehicleEngineState ( theVehicle, false )
+    end
+end
+-- add 'turnEngineOff' as a handler for "onPlayerExitVehicle"
+addEventHandler ( "onPlayerVehicleExit", root, turnEngineOff )

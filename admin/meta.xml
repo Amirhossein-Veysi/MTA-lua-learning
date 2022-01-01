@@ -1,6 +1,9 @@
 <meta>
-    <script src="admin.lua" type="server"/>
+    <oop>true</oop>
+    
     <script src="utils.lua" type="server"/>
+    <script src="admin.lua" type="server"/>
     
     <export function="getVehicleFromId" type="server"/>
+    <export function="getPositionInFrontOf" type="server"/>
 </meta>

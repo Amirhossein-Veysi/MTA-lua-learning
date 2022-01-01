@@ -1,11 +1,12 @@
 function createVehicleForPlayer(player, command, model)
     local db = exports.db.getConnection()
-    local x, y, z = getElementPosition(player)
-    local rx, ry, rz = getElementRotation(player)
-    y = y + 5
-
+    local x, y, z, rx, ry, rz, interior, demension = exports.admin:getPositionInFrontOf(player)
+    
     dbExec(db, 'INSERT INTO vehicles (model, x, y, z, rx, ry, rz, health) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', model, x, y, z, rx, ry, rz, 1000);
-    local vehicleObject = createVehicle(model, x, y, z, xr, yr, zr)
+    local vehicleObject = createVehicle(model, x, y, z, rx, ry, rz)
+
+    setElementInterior(vehicleObject, interior)
+    setElementDimension(vehicleObject, demension)
 
     dbQuery(function(queryHandle)
         local results = dbPoll(queryHandle, 0)
@@ -54,7 +55,7 @@ function lockcar (player)
     if vehicle then
         if isVehicleLocked ( vehicle ) then
             setVehicleLocked ( vehicle, false )
-            outputChatBox("vehicle isn't locked", player, 100, 100, 255)
+            outputChatBox("vehicle is unlocked", player, 100, 100, 255)
         else
             setVehicleLocked ( vehicle, true )
             outputChatBox("vehicle is locked", player, 100, 100, 255)
@@ -68,7 +69,25 @@ function changeEngine(player)
         if getVehicleEngineState(vehicle) then
             setVehicleEngineState(vehicle, false)
         else
-            setVehicleLocked ( vehicle, true)
+            setVehicleEngineState(vehicle, true)
+        end
+    end
+end
+
+function changeLight(player)
+    local vehicle = getPedOccupiedVehicle(player)
+    if vehicle then
+        outputChatBox(getVehicleLightState(vehicle, 0))
+        if getVehicleLightState(vehicle, 0) == 1 then
+            setVehicleLightState(vehicle, 0, 0)
+            setVehicleLightState(vehicle, 1, 0)
+            setVehicleLightState(vehicle, 2, 0)
+            setVehicleLightState(vehicle, 3, 0)
+        else
+            setVehicleLightState(vehicle, 0, 1)
+            setVehicleLightState(vehicle, 1, 1)
+            setVehicleLightState(vehicle, 2, 1)
+            setVehicleLightState(vehicle, 3, 1)
         end
     end
 end
@@ -76,6 +95,7 @@ end
 function bindLockOnSpawn ( theSpawnpoint )
     bindKey ( source, "l", "down", lockcar)
     bindKey(source, "o", "down", changeEngine)
+    bindKey ( source, "j", "down", changeLight)
 end
 addEventHandler ( "onPlayerSpawn", root, bindLockOnSpawn ) 
 

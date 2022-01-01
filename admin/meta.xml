@@ -1,0 +1,6 @@
+<meta>
+    <script src="admin.lua" type="server"/>
+    <script src="utils.lua" type="server"/>
+    
+    <export function="getVehicleFromId" type="server"/>
+</meta>

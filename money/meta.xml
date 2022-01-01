@@ -1,0 +1,10 @@
+<meta>
+    <script src="money.lua" type="server"/>
+
+    <export function="give" type="server"/>
+    <export function="take" type="server"/>
+    <export function="set" type="server"/>
+    <export function="get" type="server"/>
+
+    <script src="payday.lua" type="server" />
+</meta>
